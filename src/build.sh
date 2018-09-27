@@ -32,7 +32,7 @@ fi
 if [ -n "$2" ]; then
     IMAGE_TAG=$2
 fi
-if [ $CONTEXT_PATH -n ]; then
+if [ -z $CONTEXT_PATH ]; then
     CONTEXT_PATH=.
 fi
 if [ ${CONTEXT_PATH:0:1} == '/' ]; then
@@ -72,7 +72,7 @@ if [ ! -f ${CONTEXT_PATH}/Dockerfile ]; then
     exit 1
 fi
 
-GIT_COMMIT=$(git log -1 --pretty=format:"%h" -- ./${CONTEXT_PATH:1}/)
+GIT_COMMIT=$(git log -1 --pretty=format:"%h" -- ./${CONTEXT_PATH}/)
 echo GIT_COMMIT=$GIT_COMMIT
 
 echo ================ PULL OLD IMAGE ================
